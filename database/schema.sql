@@ -32,7 +32,3 @@ FOREIGN KEY (task_id_tasks) REFERENCES tasks,
 project_name VARCHAR(255) NOT NULL ,
 task_name VARCHAR(255) NOT NULL
 );
-
--- ALTER TABLE tasks_projects ADD FOREIGN KEY ("project_id_projects" ) REFERENCES projects ("project_id");
---
--- ALTER TABLE tasks_projects ADD FOREIGN KEY ("task_id_tasks") REFERENCES tasks ("task_id");
