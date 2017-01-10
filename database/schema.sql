@@ -11,7 +11,7 @@ CREATE TABLE projects (
   project_name VARCHAR(255) NOT NULL,
   project_description VARCHAR(255),
   completed BOOLEAN DEFAULT false,
-  project_rank INTEGER UNIQUE
+  project_rank INTEGER UNIQUE NOT NULL
 );
 
 DROP TABLE IF EXISTS tasks;
