@@ -2,34 +2,30 @@ const pgPromise = require('pg-promise')
 const pgp = pgPromise()
 const db = pgp(`postgres://${process.env.USER}@localhost:5432/dumo`)
 
-const createProjectsQuery = 'INSERT INTO projects (project_name, project_description) VALUES ($1, $2) RETURNING *'
+const createProject = 'INSERT INTO projects (project_name, project_description) VALUES ($1, $2) RETURNING *'
 
-const createTasksQuery = 'INSERT INTO tasks ( task_name, rank, project_id) VALUES ($1, $2, $3) RETURNING *'
+const getAllProjects = 'SELECT * FROM projects'
 
-const getAll = 'SELECT * FROM projects'
-const allProjectsQuery = 'SELECT * FROM projects ORDER BY rank'
+// const createTasksQuery = 'INSERT INTO tasks ( task_name, rank, project_id) VALUES ($1, $2, $3) RETURNING *'
 
-const allTasksFromSingleProject = 'SELECT tasks FROM '
+// const allTasksFromSingleProject = 'SELECT tasks FROM '
 
-const updateRankQuery = 'UPDATE projects SET rank=${rank} WHERE id=${id}'
-
-const tasksUnderProjectQuery = 'SELECT * FROM tasks WHERE (project_id) = $1'
+// const tasksUnderProjectQuery = 'SELECT * FROM tasks WHERE (project_id) = $1'
 
 const deleteTask = 'DELETE FROM tasks WHERE task_id = $1'
+
+const deleteProject = 'DELETE FROM projects WHERE project_id = $1'
 
 
 
 const projects = {
-  getAll:() => db.any( getAll ),
+  getAllProjects: () => db.any( getAllProjects ),
 
-  //createTask:(task_name, project_id, task_rank)
+  createProject: (projectName, projectDescription) => db.oneOrNone( createProject, [projectName, projectDescription] ),
 
-  //
-  // getAll:() => {
-  //   db.any( allProjectsQuery,)
-  // },
+  deleteTask:() => db.one( deleteTask, task_id),
 
-  deleteTask:() => db.one( deleteTask, task_id)
+  deleteProject:() => db.one( deleteProject, project_id)
 }
 
 module.exports = projects
