@@ -8,12 +8,18 @@ const createTasksQuery = 'INSERT INTO tasks (project_name, task_name, rank) VALU
 
 const allProjectsQuery = 'SELECT * FROM projects ORDER BY rank'
 
-const setRankQuery = 'UPDATE projects SET rank = project_id WHERE project_id = $1'
+const allTasksFromSingleProject = 'SELECT tasks FROM '
+
+const updateRankQuery = 'UPDATE projects SET rank=${rank} WHERE id=${id}'
+
+const tasksUnderProjectQuery = 'SELECT * FROM tasks WHERE (project_id) = $1
+
+
 
 
 const createProjectFunction = {
   create:(project_name, project_description, rank) => {
-    return db.oneOrNone(createProjectsQuery[project_name, project_description, rank])
+    return db.oneOrNone( createProjectsQuery[project_name, project_description, rank] )
   },
 
   getAll:() => {

@@ -1,1 +1,1 @@
-INSERT INTO projects (project_name) VALUES ('bob list'), ('john list'), ('debbie list');
+INSERT INTO projects (project_name) VALUES ('Make the bed'), ('Clean room'), ('Fix car');
