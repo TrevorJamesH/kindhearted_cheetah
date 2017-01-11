@@ -12,7 +12,7 @@ const allTasksFromSingleProject = 'SELECT tasks FROM '
 
 const updateRankQuery = 'UPDATE projects SET rank=${rank} WHERE id=${id}'
 
-const tasksUnderProjectQuery = 'SELECT * FROM tasks WHERE (project_id) = $1
+const tasksUnderProjectQuery = 'SELECT * FROM tasks WHERE (project_id) = $1'
 
 
 
