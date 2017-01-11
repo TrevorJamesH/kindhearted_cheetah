@@ -3,3 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  div.newToDo
+    form(action = 'createProjectRoute' method = 'post')
+      input(placeholder = 'Enter new Project')
+  //- div.project.list
+  //-   ul
+  //-     each project in projects
+  //-       li=project.project_name
