@@ -14,6 +14,7 @@ const updateRankQuery = 'UPDATE projects SET rank=${rank} WHERE id=${id}'
 
 const tasksUnderProjectQuery = 'SELECT * FROM tasks WHERE (project_id) = $1'
 
+const deleteTask = 'DELETE FROM tasks WHERE task_id = $1'
 
 
 
@@ -23,9 +24,11 @@ const createProjectFunction = {
   },
 
   getAll:() => {
-    db.any( allProjectsQuery )
+    db.any( allProjectsQuery,)
   },
 
-  setRankFunction(project_id),
+  deleteTask:() => {
+    db.one( deleteTask, task_id)
+  }
 
 }
