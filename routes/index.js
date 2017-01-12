@@ -8,9 +8,6 @@ router.get('/', function(request, response, next) {
   response.redirect('/getAllProjects');
 });
 
-// router.get('/hai', (req, res) =>{
-//   res.json({ title: 'HAI' });
-// });
 
 router.get('/getAllProjects', (request, response) => {
   projects.getAllProjects()
@@ -31,21 +28,13 @@ router.post('/createProject', (request, response) => {
     .catch(error => response.json(error))
 })
 
-router.get('/deleteProject/:project_id', (request, response) => {
-  const project_id = request.params.project_id
-  projects.deleteProject(project_id)
-    .then(() => {
-      response.redirect('/getAllProjects')
-    })
+router.post ('/deleteProject/:project_id', (request, response) => {
+  projects.deleteProject(request.params.project_id).then( () =>
+    response.redirect('/getAllProjects')
+    )
+    .catch(error => res.json(error))
 })
 
-// router.get('/delete/:id', function(req, res, next) {
-//   const todoId = req.params.id
-//   const user_id = req.query.user
-//   Todos.deleteTodo(todoId)
-//     .then( ( results ) => {
-//       res.redirect('/table/' + results.table_id + '/?user=' + user_id)
-//     })
-// })
+
 
 module.exports = router;

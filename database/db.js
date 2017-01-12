@@ -17,15 +17,13 @@ const deleteTask = 'DELETE FROM tasks WHERE task_id = $1'
 const deleteProject = 'DELETE FROM projects WHERE project_id = $1'
 
 
-
 const projects = {
   getAllProjects: () => db.any( getAllProjects ),
 
   createProject: (projectName, projectDescription) => db.oneOrNone( createProject, [projectName, projectDescription] ),
 
-  // deleteTask:() => db.one( deleteTask, task_id),
-
-  deleteProject:( project_id ) => db.none( deleteProject, [project_id])
+  deleteProject:( project_id ) => {
+    return db.none( deleteProject, [project_id] )
+  }
 }
-
 module.exports = projects
