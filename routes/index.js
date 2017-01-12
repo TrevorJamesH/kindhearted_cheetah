@@ -4,26 +4,37 @@ const projects = require('../database/db.js')
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.get('/hai', (req, res) =>{
-  res.json({ title: 'HAI' });
+router.get('/', function(request, response, next) {
+  response.redirect('/getAllProjects');
 });
 
 
 router.get('/getAllProjects', (request, response) => {
-  projects.getAll()
-    .then(fromDB => response.render(index, {allProjects: fromDB}))
-    .catch(error => response.json(error))
+  projects.getAllProjects()
+    .then(fromDB => {
+      response.render('index', { allProjects: fromDB })
+    })
+    .catch(error => {
+      response.json(error)
+    })
 })
 
 
 router.post('/createProject', (request, response) => {
-  projects.getAll()
-    .then(fromDB => response.render(index, {allTodos: fromDB}))
+  console.log('body',request.body);
+  projects.createProject(request.body.projectName, request.body.projectDescription)
+    .then( () =>
+    response.redirect('/getAllProjects'))
     .catch(error => response.json(error))
 })
+
+router.post ('/deleteProject/:project_id', (request, response) => {
+  projects.deleteProject(request.params.project_id).then( () =>
+    response.redirect('/getAllProjects')
+    )
+    .catch(error => res.json(error))
+})
+
+
 
 module.exports = router;

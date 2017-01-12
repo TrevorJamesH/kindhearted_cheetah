@@ -1,12 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1= DUMO
   div.newToDo
-    form(action = 'createProjectRoute' method = 'post')
-      input(placeholder = 'Enter new Project')
-  //- div.project.list
-  //-   ul
-  //-     each project in projects
-  //-       li=project.project_name
+    form(action = '/createProject' method = 'post')
+      input(name ='projectName' placeholder = 'Enter new Project')
+      input(name ='projectDescription' placeholder = 'Enter  Description')
+      button Submit
+
+  table.table
+    each project in allProjects
+      tr
+        td #{project.project_name}
+        td #{project.project_description}
+        td.deletebutton
+          form(action='/deleteProject/' + project.project_id method='post')
+            button.btn.btn-danger X
