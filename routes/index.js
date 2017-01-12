@@ -31,8 +31,21 @@ router.post('/createProject', (request, response) => {
     .catch(error => response.json(error))
 })
 
-router.get('/deleteProject', (request, response) => {
-
+router.get('/deleteProject/:project_id', (request, response) => {
+  const project_id = request.params.project_id
+  projects.deleteProject(project_id)
+    .then(() => {
+      response.redirect('/getAllProjects')
+    })
 })
+
+// router.get('/delete/:id', function(req, res, next) {
+//   const todoId = req.params.id
+//   const user_id = req.query.user
+//   Todos.deleteTodo(todoId)
+//     .then( ( results ) => {
+//       res.redirect('/table/' + results.table_id + '/?user=' + user_id)
+//     })
+// })
 
 module.exports = router;

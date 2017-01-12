@@ -23,9 +23,9 @@ const projects = {
 
   createProject: (projectName, projectDescription) => db.oneOrNone( createProject, [projectName, projectDescription] ),
 
-  deleteTask:() => db.one( deleteTask, task_id),
+  // deleteTask:() => db.one( deleteTask, task_id),
 
-  deleteProject:() => db.one( deleteProject, project_id)
+  deleteProject:( project_id ) => db.none( deleteProject, [project_id])
 }
 
 module.exports = projects

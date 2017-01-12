@@ -1,8 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1= DUMO
   div.newToDo
     form(action = '/createProject' method = 'post')
       input(name ='projectName' placeholder = 'Enter new Project')
@@ -15,4 +14,4 @@ block content
         td #{project.project_name}
         td #{project.project_description}
         td.deletebutton
-          a.(href='/deleteProject') delete
+          a.btn.btn-danger(href='/deleteProject/' + projects.project_id) X
