@@ -6,16 +6,9 @@ const createProject = 'INSERT INTO projects (project_name, project_description) 
 
 const getAllProjects = 'SELECT * FROM projects'
 
-// const createTasksQuery = 'INSERT INTO tasks ( task_name, rank, project_id) VALUES ($1, $2, $3) RETURNING *'
-
-// const allTasksFromSingleProject = 'SELECT tasks FROM '
-
-// const tasksUnderProjectQuery = 'SELECT * FROM tasks WHERE (project_id) = $1'
-
-const deleteTask = 'DELETE FROM tasks WHERE task_id = $1'
-
 const deleteProject = 'DELETE FROM projects WHERE project_id = $1'
 
+const changeProjectName = 'UPDATE projects SET project_name=$1 WHERE project_id=$2 '
 
 const projects = {
   getAllProjects: () => db.any( getAllProjects ),
@@ -24,6 +17,10 @@ const projects = {
 
   deleteProject:( project_id ) => {
     return db.none( deleteProject, [project_id] )
+  },
+
+  changeProjectName:( project_name, project_id) => {
+    return db.one( changeProjectName, [project_name, project_id] )
   }
 }
 module.exports = projects

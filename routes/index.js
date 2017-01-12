@@ -35,6 +35,11 @@ router.post ('/deleteProject/:project_id', (request, response) => {
     .catch(error => res.json(error))
 })
 
-
+router.post('/changeProjectName/:project_id', (request, response) => {
+  projects.changeProjectName(request.params.project_id).then( () =>
+    response.redirect('/getAllProjects')
+  )
+  .catch(error => res.json(error))
+})
 
 module.exports = router;
