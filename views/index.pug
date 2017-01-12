@@ -11,8 +11,14 @@ block content
   table.table
     each project in allProjects
       tr
-        td #{project.project_name}
-        td #{project.project_description}
-        td.deletebutton
+        td
+          form(contenteditable=true action='/changeProjectName/' method='post') #{project.project_name}
+            td
+              button.btn.btn Save
+
+
+        td(contenteditable=true action='') #{project.project_description}
+
+        td.deleteButton
           form(action='/deleteProject/' + project.project_id method='post')
             button.btn.btn-danger X
