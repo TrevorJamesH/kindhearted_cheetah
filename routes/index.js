@@ -29,17 +29,19 @@ router.post('/createProject', (request, response) => {
 })
 
 router.post ('/deleteProject/:project_id', (request, response) => {
-  projects.deleteProject(request.params.project_id).then( () =>
+  projects.deleteProject(request.params.project_id)
+  .then( () =>
     response.redirect('/getAllProjects')
     )
     .catch(error => res.json(error))
 })
 
 router.post('/changeProjectName/:project_id', (request, response) => {
-  projects.changeProjectName(request.params.project_id).then( () =>
+  projects.changeProjectName(request.body.changeName, request.params.project_id)
+  .then( () =>
     response.redirect('/getAllProjects')
-  )
-  .catch(error => res.json(error))
+    )
+    .catch(error => res.json(error))
 })
 
 module.exports = router;

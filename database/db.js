@@ -8,7 +8,7 @@ const getAllProjects = 'SELECT * FROM projects'
 
 const deleteProject = 'DELETE FROM projects WHERE project_id = $1'
 
-const changeProjectName = 'UPDATE projects SET project_name=$1 WHERE project_id=$2 '
+const changeProjectName = 'UPDATE projects SET project_name = $1 WHERE project_id = $2 '
 
 const projects = {
   getAllProjects: () => db.any( getAllProjects ),
@@ -20,7 +20,7 @@ const projects = {
   },
 
   changeProjectName:( project_name, project_id) => {
-    return db.one( changeProjectName, [project_name, project_id] )
+    return db.any( changeProjectName, [project_name, project_id] )
   }
 }
 module.exports = projects
