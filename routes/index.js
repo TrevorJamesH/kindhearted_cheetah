@@ -21,9 +21,9 @@ router.get('/getAllProjects', (request, response) => {
 
 router.post('/createProject', (request, response) => {
     projects.createProject(request.body.projectName, request.body.projectDescription)
-    // .then( () =>
-    // projects.setRank()
-  // )
+    .then( () =>
+    projects.setRank( request.body.projectName )
+  )
     .then( () =>
     response.redirect('/getAllProjects')
   )

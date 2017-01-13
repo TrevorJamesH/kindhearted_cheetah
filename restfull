@@ -1,0 +1,36 @@
+
+
+INDEX
+NEW
+CREATE
+READ
+EDIT
+UPDATE
+DELETE
+
+
+INDEX  GET  /projects
+SHOW   GET  /projects/:project_id
+NEW    GET  /projects/new
+CREATE POST /projects
+EDIT   GET  /projects/:project_id/edit
+UPDATE POST /projects/:project_id
+DELETE POST /projects/:project_id/delete
+INDEX  GET  /projects/:project_id/todos
+SHOW   GET  /projects/:project_id/todos/:todo_id
+NEW    GET  /projects/:project_id/todos/new
+CREATE POST /projects/:project_id/todos
+EDIT   GET  /projects/:project_id/todos/:todo_id/edit
+UPDATE POST /projects/:project_id/todos/:todo_id
+DELETE POST /projects/:project_id/todos/:todo_id/delete
+
+
+
+INDEX  GET  /projects
+SHOW   GET  /projects/:project_id
+CREATE POST /projects
+UPDATE POST /projects/:project_id
+DELETE POST /projects/:project_id/delete
+CREATE POST /projects/:project_id/todos
+UPDATE POST /projects/:project_id/todos/:todo_id
+DELETE POST /projects/:project_id/todos/:todo_id/delete

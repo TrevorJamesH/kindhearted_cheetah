@@ -17,7 +17,7 @@ const deleteProject = 'DELETE FROM projects WHERE project_id = $1'
 
 const changeProjectName = 'UPDATE projects SET project_name = $1 WHERE project_id = $2 '
 
-const setRank = 'UPDATE projects SET project_rank = ${rank} WHERE project_id =${project_id}'
+const setRank = 'UPDATE projects SET project_rank = project_id WHERE project_name = $1'
 
 
 const projects = {
@@ -46,8 +46,8 @@ const projects = {
     return db.any( changeProjectName, [project_name, project_id] )
   },
 
-  setRank:(project_rank, project_id) => {
-    return db.one(setRank [project_rank, project_id] )
+  setRank:( project_id ) => {
+    return db.none(setRank, [project_id])
   },
 
   oderby: () => db.any(orderID)
