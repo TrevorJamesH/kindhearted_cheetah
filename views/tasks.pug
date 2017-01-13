@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= DUMO
+  div.newTask
+    form(action = '/createTask/' + projectId method = 'post')
+      input(name ='task_name' placeholder = 'Enter new Project')
+      button Submit
+
+  //- pre= JSON.stringify(tasks, null, 4)
+
+  table.table
+    each task in tasks
+      tr
+        td
+          div= task.task_name
+        //-   form(contenteditable=true action='/changeTaskName/' + project.task_id method='post') #{project.task_name}
+        //-     input(name ='changeName' placeholder = 'Change Name')
+        //-     button.btn.btn Submit
+        //-
+        //- td.deleteButton
+        //-   form(action='/deleteTask/' + project.task_id method='post')
+        //-     button.btn.btn-danger X
