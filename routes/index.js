@@ -12,20 +12,35 @@ router.get('/', function(request, response, next) {
 router.get('/getAllProjects', (request, response) => {
   projects.getAllProjects()
     .then(fromDB => {
-      response.render('index', { allProjects: fromDB })
+      response.render('index.pug', { allProjects: fromDB })
     })
     .catch(error => {
       response.json(error)
     })
 })
 
-
 router.post('/createProject', (request, response) => {
-  console.log('body',request.body);
-  projects.createProject(request.body.projectName, request.body.projectDescription)
+    projects.createProject(request.body.projectName, request.body.projectDescription)
+    // .then( () =>
+    // projects.setRank()
+  // )
     .then( () =>
-    response.redirect('/getAllProjects'))
+    response.redirect('/getAllProjects')
+  )
     .catch(error => response.json(error))
+})
+
+router.post('/createTask/:project_id', (request, response) => {
+  // console.log('WTF PANDA?', request.body)
+  projects.createTask(request.params.project_id, request.body.task_name)
+  .then( (task) =>
+    response.redirect('/getTasks/'+request.params.project_id)
+  )
+  .catch(error => {
+    response.json({
+      error: error.message,
+    })
+  })
 })
 
 router.post ('/deleteProject/:project_id', (request, response) => {
@@ -42,6 +57,19 @@ router.post('/changeProjectName/:project_id', (request, response) => {
     response.redirect('/getAllProjects')
     )
     .catch(error => res.json(error))
+})
+
+router.get('/getTasks/:project_id', (request, response) => {
+  projects.getTasks(request.params.project_id)
+    .then(tasks => {
+      response.render('tasks', {
+        projectId: request.params.project_id,
+        tasks: tasks
+      })
+    })
+    .catch(error => {
+      response.json(error)
+    })
 })
 
 module.exports = router;

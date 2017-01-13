@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= DUMO
-  div.newToDo
+  div.newProject
     form(action = '/createProject' method = 'post')
       input(name ='projectName' placeholder = 'Enter new Project')
       input(name ='projectDescription' placeholder = 'Enter  Description')
@@ -22,3 +22,5 @@ block content
         td.deleteButton
           form(action='/deleteProject/' + project.project_id method='post')
             button.btn.btn-danger X
+
+  
