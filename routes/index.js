@@ -4,15 +4,19 @@ const projects = require('../database/db.js')
 
 
 /* GET home page. */
-router.get('/', function(request, response, next) {
+router.get('/', (request, response) => {
   response.redirect('/getAllProjects');
 });
 
 
 router.get('/getAllProjects', (request, response) => {
   projects.getAllProjects()
-    .then(fromDB => {
-      response.render('index.pug', { allProjects: fromDB })
+    .then(allProjects => {
+      // set the index of the project to the rank
+      allProjects.forEach((project, index) => {
+        project.project_rank = ++index
+      })
+      response.render('index.pug', {allProjects})
     })
     .catch(error => {
       response.json(error)
@@ -21,13 +25,11 @@ router.get('/getAllProjects', (request, response) => {
 
 router.post('/createProject', (request, response) => {
     projects.createProject(request.body.projectName, request.body.projectDescription)
-    // .then( () =>
-    // projects.setRank()
-  // )
-    .then( () =>
-    response.redirect('/getAllProjects')
-  )
-    .catch(error => response.json(error))
+      // .then( () =>
+      //   projects.setRank( request.body.projectName )
+      // )
+      .then(() => response.redirect('/getAllProjects'))
+      .catch(error => response.json(error))
 })
 
 router.post('/createTask/:project_id', (request, response) => {
@@ -44,7 +46,22 @@ router.post('/createTask/:project_id', (request, response) => {
 })
 
 router.post ('/deleteProject/:project_id', (request, response) => {
-  projects.deleteProject(request.params.project_id)
+  let projectId = request.params.project_id
+  //get/save this project record from db
+  projects.getOneProject(projectId)
+  .then( projectData => {
+    console.log(projectData.project_rank);
+    let deletedRank = projectData.project_rank
+    projects.deleteProject(projectId)
+    return deletedRank
+  })
+  .then( (deletedRank) => {
+    console.log('deletedRank', deletedRank);
+    //take the ranks below deletedRank and +1 to each
+  })
+  //Bre thinks: write .then that passes deletedRank
+  // write 2 for loops that loops through the arr of project_id's to look for project_id's > deletedRank
+  // and adds +1, then +2, then +3 etc until the loop reaches arr.length-1
   .then( () =>
     response.redirect('/getAllProjects')
     )
@@ -71,5 +88,8 @@ router.get('/getTasks/:project_id', (request, response) => {
       response.json(error)
     })
 })
+
+
+
 
 module.exports = router;
