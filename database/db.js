@@ -8,6 +8,8 @@ const createTask = 'INSERT INTO tasks (project_id, task_name) VALUES ($1, $2)'
 
 const getAllProjects = 'SELECT * FROM projects'
 
+const getOneProject = 'SELECT * FROM projects WHERE project_id = $1'
+
 const getTasks = 'SELECT * FROM tasks where project_id = $1'
 
 
@@ -17,13 +19,17 @@ const deleteProject = 'DELETE FROM projects WHERE project_id = $1'
 
 const changeProjectName = 'UPDATE projects SET project_name = $1 WHERE project_id = $2 '
 
-const setRank = 'UPDATE projects SET project_rank = project_id WHERE project_name = $1'
+const setRank = 'UPDATE projects SET project_rank = $1 WHERE project_id = $2'
 
+const getLength = 'SELECT COUNT(project_id)'
+
+const updateRankingAfterDelete = 'SELECT * FROM projects WHERE '
 
 const projects = {
   getAllProjects: () => {
     return db.any( getAllProjects )
   },
+  getOneProject: (id) => db.one(getOneProject, [id]),
 
   getTasks: ( project_id ) => {
     return db.any( getTasks, [project_id] )
@@ -46,12 +52,14 @@ const projects = {
     return db.any( changeProjectName, [project_name, project_id] )
   },
 
-  setRank:( project_id ) => {
-    return db.none(setRank, [project_id])
+  setRank:( rank, project_id ) => {
+    db.any(setRank)
   },
 
-  oderby: () => db.any(orderID)
+  orderby: () => db.any(orderID)
 
-
+  // getIds: () => {
+  //   return db.any('SELECT * FROM projects (projects_id)')
+  // }
 }
 module.exports = projects
